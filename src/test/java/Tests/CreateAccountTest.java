@@ -5,6 +5,7 @@ import ObjectData.ResponseObject.ResponseAccountGetSuccess;
 import ObjectData.ResponseObject.ResponseAccountSuccess;
 import ObjectData.ResponseObject.ResponseTokenSuccess;
 import PropertyUtility.PropertyUtility;
+import RestClient.ResponseStatus;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
@@ -44,7 +45,7 @@ public class CreateAccountTest {
         //interactionam cu respone-ul
         Response response = requestSpecification.post("/Account/v1/User");
         System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), 201);
+        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_CREATED);
         System.out.println(response.getStatusLine());
 
         //validam response body-ul
@@ -63,7 +64,7 @@ public class CreateAccountTest {
 
         Response response = requestSpecification.post("/Account/v1/GenerateToken");
         System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_OK);
         System.out.println(response.getStatusLine());
 
         ResponseTokenSuccess responseTokenSuccess = response.body().as(ResponseTokenSuccess.class);
@@ -81,7 +82,7 @@ public class CreateAccountTest {
 
         Response response = requestSpecification.get("/Account/v1/User/"+ userId);
         System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_OK);
         System.out.println(response.getStatusLine());
 
         ResponseAccountGetSuccess responseAccountGetSuccess = response.body().as(ResponseAccountGetSuccess.class);
