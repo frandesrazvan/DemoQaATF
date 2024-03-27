@@ -26,11 +26,17 @@ public class AccountServiceImpl implements AccountServiceInterface {
 
     @Override
     public Response getSpecificAccount(String token, String userId) {
-        return null;
+        accountApiService = new AccountApiService();
+        String endPoint = "/Account/v1/User/" + userId;
+
+        return accountApiService.get(token, endPoint);
     }
 
     @Override
     public Response deleteSpecificAccount(String token, String userId) {
-        return null;
+        accountApiService = new AccountApiService();
+        String endPoint = "/Account/v1/User/" + userId;
+
+        return accountApiService.delete(token, endPoint);
     }
 }

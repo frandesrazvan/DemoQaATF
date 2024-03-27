@@ -1,5 +1,6 @@
 package Tests;
 
+import Actions.AccountActions;
 import ObjectData.RequestObject.RequestAccount;
 import ObjectData.ResponseObject.ResponseAccountGetSuccess;
 import ObjectData.ResponseObject.ResponseAccountSuccess;
@@ -18,6 +19,7 @@ public class CreateAccountTest {
     public String userId;
     public String token;
     public RequestAccount requestAccountBody;
+    public AccountActions accoutActions;
 
     @Test
     public void testMethod(){
@@ -29,63 +31,84 @@ public class CreateAccountTest {
 
         System.out.println("\nStep 3: Get new account");
         getSpecificAccount();
+
+        System.out.println("\nStep 4: Delete the newly created account");
+        deleteSpecificAccount();
+
+        System.out.println("\nStep 5: Check if newly deleted account was deleted");
+        getSpecificAccount();
     }
 
     public void createAccount() {
-        //configurarile pentru client
-        RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://demoqa.com");
-        requestSpecification.contentType("application/json");
+//        //configurarile pentru client
+//        RequestSpecification requestSpecification = RestAssured.given();
+//        requestSpecification.baseUri("https://demoqa.com");
+//        requestSpecification.contentType("application/json");
+//
+//        //definim request-ul
+//        PropertyUtility propertyUtility = new PropertyUtility("RequestData/createAccountData");
+//        requestAccountBody = new RequestAccount(propertyUtility.getAllData());
+//        requestSpecification.body(requestAccountBody);
+//
+//        //interactionam cu respone-ul
+//        Response response = requestSpecification.post("/Account/v1/User");
+//        System.out.println(response.getStatusCode());
+//        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_CREATED);
+//        System.out.println(response.getStatusLine());
+//
+//        //validam response body-ul
+//        ResponseAccountSuccess responseAccountBody = response.body().as(ResponseAccountSuccess.class);
+//        System.out.println(responseAccountBody.getUserID());
+//        userId = responseAccountBody.getUserID();
+//        Assert.assertEquals(responseAccountBody.getUsername(), requestAccountBody.getUserName());
 
-        //definim request-ul
+        accoutActions = new AccountActions();
         PropertyUtility propertyUtility = new PropertyUtility("RequestData/createAccountData");
         requestAccountBody = new RequestAccount(propertyUtility.getAllData());
-        requestSpecification.body(requestAccountBody);
-
-        //interactionam cu respone-ul
-        Response response = requestSpecification.post("/Account/v1/User");
-        System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_CREATED);
-        System.out.println(response.getStatusLine());
-
-        //validam response body-ul
-        ResponseAccountSuccess responseAccountBody = response.body().as(ResponseAccountSuccess.class);
-        System.out.println(responseAccountBody.getUserID());
+        ResponseAccountSuccess responseAccountBody = accoutActions.createNewAccount(requestAccountBody);
         userId = responseAccountBody.getUserID();
-        Assert.assertEquals(responseAccountBody.getUsername(), requestAccountBody.getUserName());
     }
 
     public void generateToken() {
-        RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://demoqa.com");
-        requestSpecification.contentType("application/json");
+//        RequestSpecification requestSpecification = RestAssured.given();
+//        requestSpecification.baseUri("https://demoqa.com");
+//        requestSpecification.contentType("application/json");
+//
+//        requestSpecification.body(requestAccountBody);
+//
+//        Response response = requestSpecification.post("/Account/v1/GenerateToken");
+//        System.out.println(response.getStatusCode());
+//        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_OK);
+//        System.out.println(response.getStatusLine());
+//
+//        ResponseTokenSuccess responseTokenSuccess = response.body().as(ResponseTokenSuccess.class);
+//        System.out.println(responseTokenSuccess.getToken());
+//        token = responseTokenSuccess.getToken();
+//        Assert.assertEquals(responseTokenSuccess.getStatus(), "Success");
+//        Assert.assertEquals(responseTokenSuccess.getResult(), "User authorized successfully.");
 
-        requestSpecification.body(requestAccountBody);
-
-        Response response = requestSpecification.post("/Account/v1/GenerateToken");
-        System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_OK);
-        System.out.println(response.getStatusLine());
-
-        ResponseTokenSuccess responseTokenSuccess = response.body().as(ResponseTokenSuccess.class);
-        System.out.println(responseTokenSuccess.getToken());
+        ResponseTokenSuccess responseTokenSuccess = accoutActions.generateToken(requestAccountBody);
         token = responseTokenSuccess.getToken();
-        Assert.assertEquals(responseTokenSuccess.getStatus(), "Success");
-        Assert.assertEquals(responseTokenSuccess.getResult(), "User authorized successfully.");
     }
 
     public void getSpecificAccount() {
-        RequestSpecification requestSpecification = RestAssured.given();
-        requestSpecification.baseUri("https://demoqa.com");
-        requestSpecification.contentType("application/json");
-        requestSpecification.header("Authorization", "Bearer " + token); // autorizarea
+//        RequestSpecification requestSpecification = RestAssured.given();
+//        requestSpecification.baseUri("https://demoqa.com");
+//        requestSpecification.contentType("application/json");
+//        requestSpecification.header("Authorization", "Bearer " + token); // autorizarea
+//
+//        Response response = requestSpecification.get("/Account/v1/User/"+ userId);
+//        System.out.println(response.getStatusCode());
+//        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_OK);
+//        System.out.println(response.getStatusLine());
+//
+//        ResponseAccountGetSuccess responseAccountGetSuccess = response.body().as(ResponseAccountGetSuccess.class);
+//        Assert.assertEquals(responseAccountGetSuccess.getUsername(), requestAccountBody.getUserName());
 
-        Response response = requestSpecification.get("/Account/v1/User/"+ userId);
-        System.out.println(response.getStatusCode());
-        Assert.assertEquals(response.getStatusCode(), ResponseStatus.SC_OK);
-        System.out.println(response.getStatusLine());
+        accoutActions.getSpecificAccount(token, userId, requestAccountBody);
+    }
 
-        ResponseAccountGetSuccess responseAccountGetSuccess = response.body().as(ResponseAccountGetSuccess.class);
-        Assert.assertEquals(responseAccountGetSuccess.getUsername(), requestAccountBody.getUserName());
+    public void deleteSpecificAccount() {
+        accoutActions.deleteSpecificAccount(token, userId);
     }
 }
