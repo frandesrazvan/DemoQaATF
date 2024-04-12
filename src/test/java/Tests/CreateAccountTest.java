@@ -19,7 +19,7 @@ public class CreateAccountTest {
     public String userId;
     public String token;
     public RequestAccount requestAccountBody;
-    public AccountActions accoutActions;
+    public AccountActions accountActions;
 
     @Test
     public void testMethod(){
@@ -62,10 +62,10 @@ public class CreateAccountTest {
 //        userId = responseAccountBody.getUserID();
 //        Assert.assertEquals(responseAccountBody.getUsername(), requestAccountBody.getUserName());
 
-        accoutActions = new AccountActions();
+        accountActions = new AccountActions();
         PropertyUtility propertyUtility = new PropertyUtility("RequestData/createAccountData");
         requestAccountBody = new RequestAccount(propertyUtility.getAllData());
-        ResponseAccountSuccess responseAccountBody = accoutActions.createNewAccount(requestAccountBody);
+        ResponseAccountSuccess responseAccountBody = accountActions.createNewAccount(requestAccountBody);
         userId = responseAccountBody.getUserID();
     }
 
@@ -87,7 +87,7 @@ public class CreateAccountTest {
 //        Assert.assertEquals(responseTokenSuccess.getStatus(), "Success");
 //        Assert.assertEquals(responseTokenSuccess.getResult(), "User authorized successfully.");
 
-        ResponseTokenSuccess responseTokenSuccess = accoutActions.generateToken(requestAccountBody);
+        ResponseTokenSuccess responseTokenSuccess = accountActions.generateToken(requestAccountBody);
         token = responseTokenSuccess.getToken();
     }
 
@@ -105,10 +105,10 @@ public class CreateAccountTest {
 //        ResponseAccountGetSuccess responseAccountGetSuccess = response.body().as(ResponseAccountGetSuccess.class);
 //        Assert.assertEquals(responseAccountGetSuccess.getUsername(), requestAccountBody.getUserName());
 
-        accoutActions.getSpecificAccount(token, userId, requestAccountBody);
+        accountActions.getSpecificAccount(token, userId, requestAccountBody);
     }
 
     public void deleteSpecificAccount() {
-        accoutActions.deleteSpecificAccount(token, userId);
+        accountActions.deleteSpecificAccount(token, userId);
     }
 }
