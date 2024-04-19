@@ -1,6 +1,8 @@
 package Service;
 
 import LoggerUtility.LoggerUtility;
+import XmlFile.GeneralXml;
+import XmlFile.XmlNode.Configuration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.internal.RequestSpecificationImpl;
@@ -8,6 +10,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class ServiceHelper {
+
+    private static final Configuration configuration = GeneralXml.createConfig(Configuration.class);
 
     // metoda care sa logheze info despre request
     public static void requestLogs(RequestSpecification requestSpecification, String path, String methodType) {
@@ -26,7 +30,7 @@ public class ServiceHelper {
     }
 
     private static String getRequestURL(String path) {
-        return "Request URI: https://demoqa.com/" + path;
+        return "Request URI: " + configuration.backendConfig.baseURL + path;
     }
 
     private static String getRequestMethod(String methodType) {

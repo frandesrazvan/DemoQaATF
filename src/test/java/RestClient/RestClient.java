@@ -1,5 +1,7 @@
 package RestClient;
 
+import XmlFile.GeneralXml;
+import XmlFile.XmlNode.Configuration;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -12,8 +14,10 @@ public class RestClient {
     // 2. metoda care returneaza un raspuns pe baza configurarilor de la client
 
     private RequestSpecification prepareClient(RequestSpecification requestSpecification) {
-        requestSpecification.baseUri("https://demoqa.com");
-        requestSpecification.contentType("application/json");
+        Configuration configuration = GeneralXml.createConfig(Configuration.class);
+
+        requestSpecification.baseUri(configuration.backendConfig.baseURL);
+        requestSpecification.contentType(configuration.backendConfig.contentType);
 
         return requestSpecification;
     }

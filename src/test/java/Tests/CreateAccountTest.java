@@ -2,16 +2,10 @@ package Tests;
 
 import Actions.AccountActions;
 import ObjectData.RequestObject.RequestAccount;
-import ObjectData.ResponseObject.ResponseAccountGetSuccess;
 import ObjectData.ResponseObject.ResponseAccountSuccess;
 import ObjectData.ResponseObject.ResponseTokenSuccess;
 import PropertyUtility.PropertyUtility;
-import RestClient.ResponseStatus;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
-import org.testng.Assert;
+
 import org.testng.annotations.Test;
 
 public class CreateAccountTest {
