@@ -6,9 +6,12 @@ import ObjectData.ResponseObject.ResponseAccountSuccess;
 import ObjectData.ResponseObject.ResponseTokenSuccess;
 import PropertyUtility.PropertyUtility;
 
+import extentUtility.ExtentUtility;
+import extentUtility.ReportStep;
+import hooks.Hooks;
 import org.testng.annotations.Test;
 
-public class CreateAccountTest {
+public class CreateAccountTest extends Hooks {
 
     public String userId;
     public String token;
@@ -19,18 +22,23 @@ public class CreateAccountTest {
     public void testMethod(){
         System.out.println("Step 1: Create new account");
         createAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user creates a new account with success");
 
         System.out.println("\nStep 2: Generate new token");
         generateToken();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user generates a token for new account with success");
 
         System.out.println("\nStep 3: Get new account");
         getSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user validates the presence of new account with success");
 
         System.out.println("\nStep 4: Delete the newly created account");
         deleteSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user deletes the new account with success");
 
         System.out.println("\nStep 5: Check if newly deleted account was deleted");
         getSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user validates the presence of deleted account with success");
     }
 
     public void createAccount() {
