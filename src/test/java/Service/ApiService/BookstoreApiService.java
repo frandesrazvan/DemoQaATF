@@ -1,4 +1,6 @@
 package Service.ApiService;
 
-public class BookstoreApiService {
+import Service.CommonApiService;
+
+public class BookstoreApiService extends CommonApiService {
 }
