@@ -38,6 +38,10 @@ public class BooksAccountTest extends Hooks {
 
         System.out.println("\nStep 4: Add books to account");
         addBooksToAccount();
+
+        System.out.println("\nStep 5: Get new account with books");
+        getSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user validates the presence of new account with success");
     }
 
     public void createAccount() {

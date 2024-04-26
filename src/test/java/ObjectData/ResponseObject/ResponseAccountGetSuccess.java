@@ -1,6 +1,6 @@
 package ObjectData.ResponseObject;
 
-import ObjectData.BookObject;
+import ObjectData.ResponseObject.modelObject.ResponseBookObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
@@ -14,5 +14,5 @@ public class ResponseAccountGetSuccess {
     @JsonProperty("username")
     private String username;
     @JsonProperty("books")
-    private List<BookObject> books;
+    private List<ResponseBookObject> books;
 }

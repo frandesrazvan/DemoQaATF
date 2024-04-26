@@ -1,6 +1,6 @@
 package ObjectData.RequestObject;
 
-import ObjectData.ModelObject.BookObject;
+import ObjectData.RequestObject.modelObject.RequestBookObject;
 import ObjectData.RequestPreparation;
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class RequestAccountBooks implements RequestPreparation {
 
     private String userId;
-    private List<BookObject> collectionOfIsbns;
+    private List<RequestBookObject> collectionOfIsbns;
 
     public RequestAccountBooks(HashMap<String, String> testData) {
         prepareObject(testData);
@@ -33,7 +33,7 @@ public class RequestAccountBooks implements RequestPreparation {
         collectionOfIsbns = new ArrayList<>();
         String[] books = value.split(",");
         for (String book : books) {
-            collectionOfIsbns.add(new BookObject(book));
+            collectionOfIsbns.add(new RequestBookObject(book));
         }
     }
 }

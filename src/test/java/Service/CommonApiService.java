@@ -35,6 +35,19 @@ public class CommonApiService {
         return response;
     }
 
+    public Response put(Object body, String endPoint, String token) {
+        RequestSpecification requestSpecification = RestAssured.given();
+
+        requestSpecification.header("Authorization", "Bearer " + token);
+        requestSpecification.body(body);
+        ServiceHelper.requestLogs(requestSpecification, endPoint, RequestType.REQUEST_PUT);
+
+        Response response = performRequest(RequestType.REQUEST_PUT, requestSpecification, endPoint);
+        ServiceHelper.responseLogs(response);
+
+        return response;
+    }
+
     public Response get(String token, String endPoint) {
         RequestSpecification requestSpecification = RestAssured.given();
         requestSpecification.header("Authorization", "Bearer " + token);
@@ -49,6 +62,19 @@ public class CommonApiService {
     public Response delete(String token, String endPoint) {
         RequestSpecification requestSpecification = RestAssured.given();
         requestSpecification.header("Authorization", "Bearer " + token);
+        ServiceHelper.requestLogs(requestSpecification, endPoint, RequestType.REQUEST_DELETE);
+
+        Response response = performRequest(RequestType.REQUEST_DELETE, requestSpecification, endPoint);
+        ServiceHelper.responseLogs(response);
+
+        return response;
+    }
+
+    public Response delete(Object body, String token, String endPoint) {
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.header("Authorization", "Bearer " + token);
+        requestSpecification.body(body);
+
         ServiceHelper.requestLogs(requestSpecification, endPoint, RequestType.REQUEST_DELETE);
 
         Response response = performRequest(RequestType.REQUEST_DELETE, requestSpecification, endPoint);
