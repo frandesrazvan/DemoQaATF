@@ -1,17 +1,11 @@
 package ObjectData.ModelObject;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
 public class BookObject {
+
     private String isbn;
-
-    public BookObject(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
 }

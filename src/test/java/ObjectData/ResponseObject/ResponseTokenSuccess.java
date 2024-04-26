@@ -1,7 +1,9 @@
 package ObjectData.ResponseObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class ResponseTokenSuccess {
 
     @JsonProperty("token")
@@ -12,20 +14,4 @@ public class ResponseTokenSuccess {
     private String result;
     @JsonProperty("status")
     private String status;
-
-    public String getToken() {
-        return token;
-    }
-
-    public String getExpires() {
-        return expires;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public String getStatus() {
-        return status;
-    }
 }

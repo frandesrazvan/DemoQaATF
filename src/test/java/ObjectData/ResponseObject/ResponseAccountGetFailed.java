@@ -1,19 +1,13 @@
 package ObjectData.ResponseObject;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class ResponseAccountGetFailed {
 
     @JsonProperty("code")
     private String code;
     @JsonProperty("message")
     private String message;
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

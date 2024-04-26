@@ -2,11 +2,13 @@ package ObjectData.RequestObject;
 
 import ObjectData.ModelObject.BookObject;
 import ObjectData.RequestPreparation;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Data
 public class RequestAccountBooks implements RequestPreparation {
 
     private String userId;
@@ -30,28 +32,8 @@ public class RequestAccountBooks implements RequestPreparation {
     private void prepareBooks(String value) {
         collectionOfIsbns = new ArrayList<>();
         String[] books = value.split(",");
-
-//        for (int i = 0; i < books.length; i++) {
-//            collectionOfIsbns.add(new BookObject(books[i]));
-//        }
         for (String book : books) {
             collectionOfIsbns.add(new BookObject(book));
         }
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public List<BookObject> getCollectionOfIsbns() {
-        return collectionOfIsbns;
-    }
-
-    public void setCollectionOfIsbns(List<BookObject> collectionOfIsbns) {
-        this.collectionOfIsbns = collectionOfIsbns;
     }
 }
