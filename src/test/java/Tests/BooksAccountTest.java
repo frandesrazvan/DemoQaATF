@@ -4,6 +4,7 @@ import Actions.AccountActions;
 import Actions.BookStoreActions;
 import ObjectData.RequestObject.RequestAccount;
 import ObjectData.RequestObject.RequestAccountBooks;
+import ObjectData.RequestObject.RequestAccountBook;
 import ObjectData.ResponseObject.ResponseAccountSuccess;
 import ObjectData.ResponseObject.ResponseTokenSuccess;
 import PropertyUtility.PropertyUtility;
@@ -21,6 +22,7 @@ public class BooksAccountTest extends Hooks {
     public AccountActions accountActions;
     public BookStoreActions bookStoreActions;
     public RequestAccountBooks requestAccountBooks;
+    public RequestAccountBook requestAccountBook;
 
     @Test
     public void method() {
@@ -42,6 +44,34 @@ public class BooksAccountTest extends Hooks {
         System.out.println("\nStep 5: Get new account with books");
         getSpecificAccount();
         ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user validates the presence of new account with success");
+
+        System.out.println("\nStep 6: Update specific book from account");
+        updateSpecificBook();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user modifies an existing book with success");
+
+        System.out.println("\nStep 7: Delete specific book from account");
+        deleteSpecificBook();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user deletes an existing book with success");
+
+        System.out.println("\nStep 8: Get new account with books");
+        getSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user validates the presence of new account with success");
+
+        System.out.println("\nStep 9: Delete account books");
+        deleteAccountBooks();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user deletes all the books from account with success");
+
+        System.out.println("\nStep 10: Get new account with books");
+        getSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP, "The user validates the presence of new account with success");
+
+        System.out.println("\nStep 11: Delete the newly created account");
+        deleteSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user deletes the new account with success");
+
+        System.out.println("\nStep 12: Check if newly deleted account was deleted");
+        getSpecificAccount();
+        ExtentUtility.attachReportLog(ReportStep.PASS_STEP,"The user validates the presence of deleted account with success");
     }
 
     public void createAccount() {
@@ -61,6 +91,28 @@ public class BooksAccountTest extends Hooks {
         accountActions.getSpecificAccount(token, userId, requestAccountBody);
     }
 
+    public void updateSpecificBook() {
+        PropertyUtility propertyUtility = new PropertyUtility("RequestData/booksAccountData");
+        HashMap<String, String> testData = propertyUtility.getAllData();
+
+        String expectedIsbn = testData.get("expectedIsbn");
+        String actualIsbn = testData.get("actualIsbn");
+
+        testData.put("userId", userId);
+        testData.put("isbn", expectedIsbn);
+        requestAccountBook = new RequestAccountBook(testData);
+
+        bookStoreActions.updateSpecificBookFromAccount(token, requestAccountBook, actualIsbn);
+    }
+
+    public void deleteSpecificBook() {
+        bookStoreActions.deleteSpecificBookFromAccount(token, requestAccountBook);
+    }
+
+    public void deleteAccountBooks() {
+        bookStoreActions.deleteBooksFromAccount(token, userId);
+    }
+
     public void addBooksToAccount() {
         PropertyUtility propertyUtility = new PropertyUtility("RequestData/booksAccountData");
         HashMap<String, String> testData = propertyUtility.getAllData();
@@ -69,5 +121,9 @@ public class BooksAccountTest extends Hooks {
 
         bookStoreActions = new BookStoreActions();
         bookStoreActions.addBooksToAccount(token, requestAccountBooks);
+    }
+
+    public void deleteSpecificAccount() {
+        accountActions.deleteSpecificAccount(token, userId);
     }
 }

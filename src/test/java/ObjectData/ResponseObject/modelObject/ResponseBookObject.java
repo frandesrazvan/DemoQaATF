@@ -1,6 +1,6 @@
 package ObjectData.ResponseObject.modelObject;
 
-import ObjectData.ResponseNotNull;
+import ObjectData.ResponseObject.ResponseNotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import org.testng.Assert;

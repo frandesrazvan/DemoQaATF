@@ -1,7 +1,6 @@
 package ObjectData.ResponseObject;
 
 import ObjectData.RequestObject.modelObject.RequestBookObject;
-import ObjectData.ResponseNotNull;
 import ObjectData.ResponseObject.modelObject.ResponseBookObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

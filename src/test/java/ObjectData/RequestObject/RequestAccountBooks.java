@@ -1,7 +1,6 @@
 package ObjectData.RequestObject;
 
 import ObjectData.RequestObject.modelObject.RequestBookObject;
-import ObjectData.RequestPreparation;
 import lombok.Data;
 
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package Service.ServiceImplementation;
 
 import ObjectData.RequestObject.RequestAccountBooks;
+import ObjectData.RequestObject.RequestAccountBook;
 import Service.ApiService.BookstoreApiService;
 import Service.InterfaceService.BookStoreServiceInterface;
 import io.restassured.response.Response;
@@ -17,17 +18,27 @@ public class BookStoreServiceImpl implements BookStoreServiceInterface {
     }
 
     @Override
-    public Response updateSpecificBook() {
-        return null;
+    public Response updateSpecificBook(RequestAccountBook body, String token, String actualIsbn) {
+        bookstoreApiService = new BookstoreApiService();
+        String url = "BookStore/v1/Books/" + actualIsbn;
+
+        return bookstoreApiService.put(body, url, token);
     }
 
     @Override
-    public Response deleteSpecificBook() {
-        return null;
+    public Response deleteSpecificBook(RequestAccountBook body, String token) {
+        bookstoreApiService = new BookstoreApiService();
+
+        return bookstoreApiService.delete(body, token, "/BookStore/v1/Book");
+
     }
 
     @Override
-    public Response deleteBooks() {
-        return null;
+    public Response deleteBooks(String token, String userId) {
+        bookstoreApiService = new BookstoreApiService();
+        String url = "BookStore/v1/Books?UserId=" + userId;
+
+        return bookstoreApiService.delete(token, url);
+
     }
 }

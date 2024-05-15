@@ -1,6 +1,6 @@
 package ObjectData.RequestObject.modelObject;
 
-import ObjectData.ResponseNotNull;
+import ObjectData.ResponseObject.ResponseNotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.testng.Assert;
